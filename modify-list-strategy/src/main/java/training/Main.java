@@ -29,7 +29,5 @@ public class Main {
         for (Vote v : gLG.getGuestList()) {
             System.out.printf("%d %s %s\n", v.getDate(), v.getName(), v.isVote());
         }
-
     }
-
 }
