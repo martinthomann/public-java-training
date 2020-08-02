@@ -1,9 +1,6 @@
 package training;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SolutionWithMap implements GuestListGenerator {
 
@@ -22,11 +19,11 @@ public class SolutionWithMap implements GuestListGenerator {
     }
 
     @Override
-    public void generateGLDistinctByUpperDateAndFilterByTrue() {
+    public List<Vote> generateGuestListWithLatestEntryAndVoteTrue() {
 
         Map<String, Wrapper> vote = new HashMap<>();
 
-        guestList.sort((a, b) -> a.getDate() - b.getDate());
+        guestList.sort((a, b) -> a.getDate().compareTo(b.getDate()));
 
         for (Vote v : this.guestList) {
             vote.put(v.getName().toUpperCase(), new Wrapper(v.isVote(), v.getDate()));
@@ -41,13 +38,14 @@ public class SolutionWithMap implements GuestListGenerator {
         }
 
         setGuestList(l);
+        return l;
     }
 
     private class Wrapper {
         boolean vote;
-        int date;
+        Date date;
 
-        public Wrapper(boolean vote, int date) {
+        public Wrapper(boolean vote, Date date) {
             this.vote = vote;
             this.date = date;
         }

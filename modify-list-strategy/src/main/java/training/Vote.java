@@ -1,23 +1,24 @@
 package training;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class Vote {
-    private int date;
+    private Date date;
     private String name;
     private boolean vote;
 
-    public Vote(int d, String n, boolean v) {
+    public Vote(Date d, String n, boolean v) {
         this.date = d;
         this.name = n;
         this.vote = v;
     }
 
-    public int getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

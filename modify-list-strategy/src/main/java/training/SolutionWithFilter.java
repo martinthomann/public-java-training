@@ -19,18 +19,18 @@ class SolutionWithFilter implements GuestListGenerator {
         this.guestList = guestList;
     }
 
-    public void generateGLDistinctByUpperDateAndFilterByTrue() {
+    public List<Vote> generateGuestListWithLatestEntryAndVoteTrue() {
         List<Vote> l = guestList
                 .stream()
                 .sorted((o1, o2) -> {
-                    if (o2.getDate() > o1.getDate()) return 1;
-                    else if (o2.getDate() < o1.getDate()) return -1;
+                    if (o2.getDate().after(o1.getDate())) return 1;
+                    else if (o2.getDate().before(o1.getDate())) return -1;
                     else return 0;
                 })
                 .filter(v -> {
                     for (Vote vote : guestList) {
                         if (vote.getName().toUpperCase().equals(v.getName().toUpperCase()) &&
-                                vote.getDate() > v.getDate()) {
+                                vote.getDate().after(v.getDate())) {
                             return false;
                         }
                     }
@@ -40,5 +40,6 @@ class SolutionWithFilter implements GuestListGenerator {
 
                 .collect(Collectors.toList());
         setGuestList(l);
+        return l;
     }
 }

@@ -6,6 +6,7 @@ import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class SolutionWithSet implements GuestListGenerator {
+
     private List<Vote> guestList;
 
     public List<Vote> getGuestList() {
@@ -20,12 +21,12 @@ public class SolutionWithSet implements GuestListGenerator {
         this.guestList = guestList;
     }
 
-    public void generateGLDistinctByUpperDateAndFilterByTrue() {
+    public List<Vote> generateGuestListWithLatestEntryAndVoteTrue() {
         List<Vote> l = (List<Vote>) new ArrayList<Vote>(new TreeSet<Vote>(guestList
                 .stream()
                 .sorted((o1, o2) -> {
-                    if (o2.getDate() > o1.getDate()) return 1;
-                    else if (o2.getDate() < o1.getDate()) return -1;
+                    if (o2.getDate().after(o1.getDate())) return 1;
+                    else if (o2.getDate().before(o1.getDate())) return -1;
                     else return 0;
                 })
                 .collect(Collectors.toCollection(
@@ -35,10 +36,11 @@ public class SolutionWithSet implements GuestListGenerator {
                 .stream()
                 .filter(v -> v.isVote())
                 .sorted((o1, o2) -> {
-                    if (o2.getDate() > o1.getDate()) return 1;
-                    else if (o2.getDate() < o1.getDate()) return -1;
+                    if (o2.getDate().after(o1.getDate())) return 1;
+                    else if (o2.getDate().before(o1.getDate())) return -1;
                     else return 0;
                 })
+//                  Alternativ sort by name...
 //                .sorted((a, b) -> {
 //                    if ((a instanceof Vote) && (b instanceof Vote)) {
 //                        return ((Vote) a).getName().compareTo(((Vote) b).getName());
@@ -46,5 +48,6 @@ public class SolutionWithSet implements GuestListGenerator {
 //                })
                 .collect(Collectors.toUnmodifiableList());
         setGuestList(l);
+        return l;
     }
 }

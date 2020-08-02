@@ -3,6 +3,7 @@ package training;
 import java.util.List;
 
 public class GuestListGeneratorFactoryImpl implements GuestListGeneratorFactory {
+
     @Override
     public GuestListGenerator createGuestListGenerator(Type t, List<Vote> guestList) {
         switch (t) {
